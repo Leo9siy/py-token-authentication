@@ -21,8 +21,7 @@ from cinema.serializers import (
     OrderSerializer,
     OrderListSerializer,
 )
-from user import permissions
-from user.permissions import IsAdminOrIfAuthenticatedReadOnly
+from cinema.permissions import IsAdminOrIfAuthenticatedReadOnly
 
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -30,6 +29,7 @@ class GenreViewSet(viewsets.ModelViewSet):
     serializer_class = GenreSerializer
 
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         if self.action in ["list", "create"]:
@@ -41,6 +41,7 @@ class ActorViewSet(viewsets.ModelViewSet):
     serializer_class = ActorSerializer
 
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         if self.action in ["list", "create"]:
@@ -63,6 +64,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
 
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         if self.action in ["list", "create", "retrieve"]:
@@ -117,6 +119,7 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSessionSerializer
 
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         if self.action in [
@@ -167,6 +170,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     pagination_class = OrderPagination
 
     authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         if self.action in ["list", "create"]:
