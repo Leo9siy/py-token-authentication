@@ -35,6 +35,7 @@ class GenreViewSet(viewsets.ModelViewSet):
         if self.action in ["list", "create"]:
             return [IsAdminOrIfAuthenticatedReadOnly]
 
+        return super().get_permissions()
 
 class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
@@ -47,6 +48,7 @@ class ActorViewSet(viewsets.ModelViewSet):
         if self.action in ["list", "create"]:
             return [IsAdminOrIfAuthenticatedReadOnly]
 
+        return super().get_permissions()
 
 class CinemaHallViewSet(viewsets.ModelViewSet):
     queryset = CinemaHall.objects.all()
@@ -57,6 +59,8 @@ class CinemaHallViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ["list", "create"]:
             return [IsAdminOrIfAuthenticatedReadOnly]
+
+        return super().get_permissions()
 
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -132,6 +136,8 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
         ]:
             return [IsAdminOrIfAuthenticatedReadOnly]
 
+        return super().get_permissions()
+
     def get_queryset(self):
         date = self.request.query_params.get("date")
         movie_id_str = self.request.query_params.get("movie")
@@ -175,6 +181,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ["list", "create"]:
             return [IsAdminOrIfAuthenticatedReadOnly]
+
+        return super().get_permissions()
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
